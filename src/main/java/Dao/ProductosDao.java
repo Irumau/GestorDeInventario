@@ -78,14 +78,14 @@ public class ProductosDao {
 
         ArrayList productosEncontrados = new ArrayList<>();
 
-        String sql = "SELECT * FROM productos WHERE nombre LIKE ? LIMIT 1";
+        String sql = "SELECT * FROM productos WHERE nombre LIKE ?";
 
         try (Connection conn = ConexionDB.conectar(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, "%" + nombre + "%");
+            pstmt.setString(1, nombre + "%");
 
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
+                while(rs.next()) {
                     productosEncontrados.add(new Producto(
                             rs.getInt("id"),
                             rs.getString("nombre"),
@@ -99,6 +99,9 @@ public class ProductosDao {
             System.err.println("Error al obtener el producto: " + err.getMessage());
         }
 
+        
+        System.out.println("Arreglo productos encontrado " + productosEncontrados);
+        
         return productosEncontrados;
     }
 

@@ -227,6 +227,10 @@ public class Controller implements ActionListener {
                 }
             } else if (!nombreTexto.isEmpty()) {
                 lista = dao.getProductsByName(nombreTexto);
+                
+                for(Producto duc : lista){
+                    System.out.println("Productos" + duc.getNombre());
+                }
 
             } else if (!minTexto.isEmpty() && !maxTexto.isEmpty()) {
                 try {
